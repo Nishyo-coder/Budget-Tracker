@@ -41,6 +41,7 @@ const FILES_TO_CACHE = [
   self.addEventListener('fetch', event => {
     if (event.request.url.includes('/api/')) {
       console.log('[Service Worker] Fetch(data)', event.request.url);
+    
       event.respondWith(
         caches.open(DATA_CACHE_NAME).then(cache => {
           return fetch(event.request)
