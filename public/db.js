@@ -23,10 +23,6 @@ request.onupgradeneeded = function (e) {
   
   function checkDatabase() {
     console.log('check db invoked');
-  
-    // Open a transaction on the Budget db
-        // const objectStore = db.createObjectStore("toDoList");
-
     let transaction = db.transaction(['BudgetStorage'], 'readwrite');
     const Budget = transaction.objectStore("BudgetStorage", {keyPath: "listID"});
     const statusIndex = Budget.index("statusIndex");
@@ -36,11 +32,6 @@ request.onupgradeneeded = function (e) {
     Budget.add({ listID: "2", status: "pending" });
     Budget.add({ listID: "3", status: "pending" });
     Budget.add({ listID: "4", status: "pending" });
-
-    const getRequest = Budget.get("1");
-    getRequest.onsuccess = () => {
-    console.log(getRequest.result);
-        };
 
      // Return an item by index
     const getRequestIdx = statusIndex.getAll("complete");
