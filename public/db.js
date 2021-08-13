@@ -64,7 +64,6 @@ request.onupgradeneeded = function (e) {
               transaction = db.transaction(['BudgetStorage'], 'readwrite');
               // Clear existing entries because our bulk add was successful
             //   const store = transaction.objectStore('BudgetStorage');
-
               store.clear();
               console.log('Clearing store 🧹');
             }
