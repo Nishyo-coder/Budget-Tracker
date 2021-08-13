@@ -72,7 +72,9 @@ request.onupgradeneeded = function (e) {
               // Open another transaction to BudgetStore with the ability to read and write
               transaction = db.transaction(['BudgetStorage'], 'readwrite');
               // Clear existing entries because our bulk add was successful
-              Store.clear();
+            //   const store = transaction.objectStore('BudgetStorage');
+
+              store.clear();
               console.log('Clearing store 🧹');
             }
           });
@@ -96,7 +98,7 @@ request.onupgradeneeded = function (e) {
     // // Create a transaction on the BudgetStore db with readwrite access
     const transaction = db.transaction(["BudgetStore"], 'readwrite');
     // // Access your BudgetStore object store
-    const store = transaction.objectStore("BudgetStore");
+    const store = transaction.objectStore("BudgetStorage");
   
     // Add record to your store with add method.
     store.add(record);
