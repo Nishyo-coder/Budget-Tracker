@@ -1,10 +1,14 @@
+// GIVEN a user is on Budget App without an internet connection
+// WHEN the user inputs a withdrawal or deposit
+// THEN that will be shown on the page, and added to their transaction history when their connection is back online.
+
 let db;
 // let budgetVersion;
 
 // Create a new db request for a "budget" database.
 const request = indexedDB.open("budget", 1);
 
-//Onupgradeneeded will run if we need to create the databas or upgrade it
+//Onupgradeneeded will run if we need to create the database or upgrade it
 request.onupgradeneeded = function (e) {
     console.log('Upgrade needed in IndexDB');
   
@@ -27,12 +31,14 @@ request.onupgradeneeded = function (e) {
   function checkDatabase() {
     console.log('check db invoked');
   
-    // Open a transaction on your BudgetStore db
-    let transaction = db.transaction(['BudgetStore'], 'readwrite');
-  
-    // access your BudgetStore object
+    // Open a transaction on the Budget db
+        // const objectStore = db.createObjectStore("toDoList");
+
+    const transaction = db.transaction(['BudgetStore'], 'readwrite');
+    objectStore.createIndex("BudgetStore", "BudgetStore");
+
+    // access your Budget object
     const store = transaction.objectStore('BudgetStore');
-  
     // Get all records from store and set to a variable
     const getAll = store.getAll();
   
@@ -80,11 +86,11 @@ request.onupgradeneeded = function (e) {
   
   const saveRecord = (record) => {
     console.log('Save record invoked');
-    // Create a transaction on the BudgetStore db with readwrite access
-    const transaction = db.transaction(['BudgetStore'], 'readwrite');
+    // // Create a transaction on the BudgetStore db with readwrite access
+    // const transaction = db.transaction(['BudgetStore'], 'readwrite');
   
-    // Access your BudgetStore object store
-    const store = transaction.objectStore('BudgetStore');
+    // // Access your BudgetStore object store
+    // const store = transaction.objectStore('BudgetStore');
   
     // Add record to your store with add method.
     store.add(record);
