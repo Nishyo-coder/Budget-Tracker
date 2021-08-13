@@ -11,7 +11,7 @@ request.onupgradeneeded = function (e) {
     console.log('Upgrade needed in IndexDB');
     db = e.target.result;
     if (db.objectStoreNames.length === 0) {
-      db.createObjectStore('BudgetStore', { autoIncrement: true });
+      db.createObjectStore('BudgetStorage', { autoIncrement: true });
       const Budget = db.createObjectStore("BudgetStorage", {keyPath: "listID"});
       Budget.createIndex("statusIndex", "status"); 
     }
@@ -46,6 +46,7 @@ request.onupgradeneeded = function (e) {
   
     // If the request was successful
     getAll.onsuccess = function () {
+        console.log(getAll)
       // If there are items in the store, we need to bulk add them when we are back online
       if (getAll.result.length > 0) {
         fetch('/api/transaction/bulk', {
